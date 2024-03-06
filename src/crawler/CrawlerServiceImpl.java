@@ -1,25 +1,42 @@
 package crawler;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class CrawlerServiceImpl implements CrawlerService {
-    public void findNamesFromWeb() throws IOException {
-        Document doc= Jsoup.connect("https://music.bugs.co.kr/chart").timeout(10*1000).get();
-        Elements elems=doc.select("");
-        Iterator<Element> title=elems.select("p.title").iterator();
-        Iterator<Element> artist=elems.select("p.artist").iterator();
-        Iterator<Element> rank=elems.select("strong").iterator();
+    private static CrawlerServiceImpl instance = new CrawlerServiceImpl();
+    private CrawlerServiceImpl(){
+        repository= CrawlerRepository.getInstance();
+    }
+    public static CrawlerServiceImpl getInstance(){return instance;}
+    private CrawlerRepository repository;
 
-        while(rank.hasNext()){
-            System.out.println(rank.next().text()+"위"+artist.next().text()+"-"
-                    +title.next().text());
-        }
+    @Override
+    public Map<String, ?> findBugsMusic(Map<String, String> paramMap) throws IOException {
+        Map<String,String> localMap=new HashMap<>();
+        localMap.put("URL",paramMap.get("URL"));
+        localMap.put("table","table.byChart");
+        localMap.put("title","p.title");
+        localMap.put("artist","p.artist");
+        localMap.put("rank","strong");
+
+        return repository.save(localMap);
+    }
+
+    @Override
+    public Map<String, ?> findMelonMusic(Map<String, String> paramMap) throws IOException {
+        Map<String,String> localMap=new HashMap<>();
+        localMap.put("URL",paramMap.get("URL"));
+        localMap.put("table","tbody");
+        localMap.put("title","div.ellipsis.rank01 span");
+        localMap.put("artist","div.ellipsis.rank02 span");
+        localMap.put("rank","td span.rank");
+
+        return repository.save(localMap);
     }
 }
 
