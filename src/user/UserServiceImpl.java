@@ -2,7 +2,6 @@ package user;
 
 import common.AbstractService;
 import common.UtilServiceImpl;
-import common.UtilService;
 import enums.Messenger;
 
 import java.util.*;

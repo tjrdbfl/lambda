@@ -30,7 +30,7 @@ public class UserController {
         return "회원가입 성공";
     }
 
-    public List<User> findAll() {
+    public List<?> findAll() {
         return service.findAll();
     }
 
