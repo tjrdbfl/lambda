@@ -1,15 +1,13 @@
 package user;
 
-import enums.Messenger;
-
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class UserController {
-    UserServiceImpl service;
+    private UserServiceImpl service;
 
     public UserController() {
         this.service = UserServiceImpl.getInstance();
@@ -92,4 +90,7 @@ public class UserController {
         return service.getUserMap();
     }
 
+    public List<?> findUsers() throws SQLException {
+        return service.findUsers();
+    }
 }
