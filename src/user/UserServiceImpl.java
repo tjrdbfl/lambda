@@ -82,7 +82,7 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         return users
                 .entrySet()
                 .stream()
-                .filter(i -> i.getKey().equals(name))
+                .filter(i -> i.getValue().getName().equals(name))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
                 ;
     }
@@ -90,8 +90,7 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     @Override
     public List<?> findUsersByJob(String job) {
         System.out.println("findUsersByJob 파라미터 : "+job);
-        users
-                .values()
+        users.values()
                 .stream().forEach(i->System.out.println("직업 :"+i.getJob()));
         return users
                 .values()
@@ -102,12 +101,9 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
 
     @Override
     public Map<String, ?> findUsersByJobFromMap(String job) {
-        return users
-                .entrySet()
-                .stream()
-                .filter(i -> i.getKey().equals(job))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
-                ;
+        return users.entrySet().stream()
+                .filter(i->i.getValue().getJob().equals(job))
+                .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
     }
 
     @Override
@@ -141,6 +137,5 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
                         .job(UtilServiceImpl.getInstance().createRandomJob())
                         .build()));
         return users.size()+"개 더미값 추가";
-
     }
 }
