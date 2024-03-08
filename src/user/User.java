@@ -11,24 +11,22 @@ public class User {
     private String username;
     private String password;
     private String name;
-    private String ssn;
-    private String phoneNumber;
-    private String address;
+    private String phone;
+    private Long addressId;
     private String job;
-    private double height;
-    private double weight;
+    private String height;
+    private String weight;
 
     @Builder(builderMethodName = "builder")
     public User(String username, String password,
-                String name, String ssn, String phoneNumber,
-                String address, String job,
-                double height, double weight) {
+                String name, String phone,
+                Long addressId, String job,
+                String height, String weight) {
         this.username = username;
         this.password = password;
         this.name = name;
-        this.ssn = ssn;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
+        this.phone = phone;
+        this.addressId = addressId;
         this.job = job;
         this.height = height;
         this.weight = weight;

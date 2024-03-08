@@ -13,16 +13,15 @@ public class UserController {
         this.service = UserServiceImpl.getInstance();
     }
 
-    public String addUsers() {
+    public String addUsers() throws SQLException {
         return service.addUsers();
     }
 
     public String save(Scanner scanner) {
         service.save(User.builder()
                 .username(scanner.next())
-                .ssn(scanner.next())
-                .address(scanner.next())
-                .phoneNumber(scanner.next())
+                .addressId(scanner.nextLong())
+                .phone(scanner.next())
                 .password(scanner.next())
                 .build());
         return "회원가입 성공";
@@ -46,9 +45,8 @@ public class UserController {
     public String updatePassword(Scanner scanner) {
         return service.updatePassword(User.builder()
                 .username(scanner.next())
-                .ssn(scanner.next())
-                .address(scanner.next())
-                .phoneNumber(scanner.next())
+                .addressId(scanner.nextLong())
+                .phone(scanner.next())
                 .password(scanner.next())
                 .build());
     }
@@ -92,5 +90,13 @@ public class UserController {
 
     public List<?> findUsers() throws SQLException {
         return service.findUsers();
+    }
+
+    public String touch() throws SQLException {
+        return service.touch();
+    }
+
+    public String rm() throws SQLException {
+        return service.rm();
     }
 }

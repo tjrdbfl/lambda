@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
-    String addUsers();
+    String addUsers() throws SQLException;
     String login(User user);
     String updatePassword(User user);
     List<?> findUsersByName(String name);
@@ -15,4 +15,8 @@ public interface UserService {
     Map<String, ?> getUserMap();
 
     List<?> findUsers() throws SQLException;
+
+    String touch() throws SQLException;
+
+    String rm() throws SQLException;
 }

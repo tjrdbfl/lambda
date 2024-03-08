@@ -18,10 +18,12 @@ public class UserView {
                     "3-ID검색\n " +
                     "4-비번변경\n" +
                     "5-탈퇴\n " +
-                    "6-회원목록\n " +
-                    "7-이름검색\n" +
-                    "8-직업검색\n" +
-                    "9-회원수");
+                    "ls-회원목록\n " +
+                    "7-이름검색\n " +
+                    "8-직업검색\n " +
+                    "9-회원수\n"+
+                    "touch-테이블생성\n "+
+                    "rm-테이블삭제");
             switch (sc.next()) {
                 case "0":
                     System.out.println("종료");
@@ -47,14 +49,10 @@ public class UserView {
                     System.out.println("5-탈퇴");
                     System.out.println(userController.delete(sc));
                     break;
-                case "6":
+                case "ls":
                     System.out.println("6-회원목록");
                     List<?> list=userController.findUsers();
                     userController.findUsers().forEach(i-> System.out.println(i.toString()));
-//                    Map<String, ?> users = userController.getUserMap();
-//                    users.forEach((k, v) -> {
-//                        System.out.printf("아이디: %s, 회원정보: %s", k, v);
-//                    });
                     break;
                 case "7":
                     System.out.println("7-이름검색");
@@ -72,6 +70,14 @@ public class UserView {
                     System.out.println("9-회원수");
                     String numberOfUsers = userController.count();
                     System.out.println("회원수 " + numberOfUsers);
+                    break;
+            case "touch":
+                    System.out.println("touch-테이블생성");
+                    System.out.println(userController.touch());
+                    break;
+            case "rm":
+                    System.out.println("rm-테이블삭제");
+                    System.out.println(userController.rm());
                     break;
             }
         }

@@ -127,15 +127,22 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     }
 
     @Override
-    public String addUsers() {
-        IntStream.range(0,5)
-                .mapToObj(i -> UtilServiceImpl.getInstance().createRandomUsername())
-                .forEach(i -> users.put(i, User.builder()
-                        .username(i)
-                        .password("1")
-                        .name(UtilServiceImpl.getInstance().createRandomName())
-                        .job(UtilServiceImpl.getInstance().createRandomJob())
-                        .build()));
-        return users.size()+"개 더미값 추가";
+    public String touch() throws SQLException {
+        return userRepository.touch();
+    }
+
+    @Override
+    public String rm() throws SQLException {
+        return userRepository.rm();
+    }
+
+    @Override
+    public String addUsers() throws SQLException {
+        String msg=null;
+        for (int i = 0; i < 5; i++) {
+            if(i==4) msg=userRepository.addUsers();
+            else userRepository.getInstance().addUsers();
+        }
+        return msg;
     }
 }

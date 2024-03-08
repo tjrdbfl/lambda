@@ -2,19 +2,24 @@ package article;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString(exclude = {"id"})
 public class Article {
-    private Integer id;
+    private Long id;
     private String title;
     private String content;
     private String writer;
+    private String registerDate;
+
     @Builder(builderMethodName = "builder")
-    public Article(Integer id,String title, String content, String writer) {
+    public Article(Long id,String title, String content, String writer,String registerDate) {
         this.id=id;
         this.title = title;
         this.content = content;
         this.writer = writer;
+        this.registerDate=registerDate;
     }
 }

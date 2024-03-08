@@ -20,8 +20,8 @@ public class ArticleView {
                     System.out.println("0-종료");return;
                 case "1":
                     System.out.println("1-articleDB 가져오기");
-                    articleController.findArticles()
-                            .forEach(i -> System.out.println(i.toString()));
+                    articleController.findAll()
+                            .forEach(i -> System.out.println(i));
                     break;
             }
         }

@@ -20,14 +20,22 @@
       <console name="Connection 1" type="STANDARD" schema="" session="Main" />
     </connection>
     <connection id="6d979b0e-d2d1-4eec-bfb6-ddfa2b3474fe">
-      <console name="dennisdb" type="STANDARD" schema="" session="Main"><![CDATA[show tables;
+      <console name="dennisdb" type="STANDARD" schema="dennisdb" session="Main"><![CDATA[show tables;
 
-select * from board;
-insert into articles(title, content,writer) values ('테스트 제목','테스트글','제임스');
-select * from articles;
-
-rename table board to articles;
-show tables;]]></console>
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(50),
+    name VARCHAR(100),
+    phone VARCHAR(20),
+    job VARCHAR(50),
+    height VARCHAR(10),
+    weight VARCHAR(10)
+);
+ALTER TABLE users DROP COLUMN address_id;
+DROP TABLE users;
+select * from users;
+insert from users(username, password, name, phone, job, height, weight)]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleRepository {
-    private static ArticleRepository instance;
+    private final static ArticleRepository instance;
 
     static {
         try {
@@ -23,24 +23,30 @@ public class ArticleRepository {
     }
     public static ArticleRepository getInstance(){return instance;}
     Connection connection;
-    public List<?> findArticles() throws SQLException {
+
+    public List<?> findAll() throws SQLException {
+        List<Article> ls=new ArrayList<>();
         String sql="select * from articles";
         PreparedStatement preparedStatement=connection.prepareStatement(sql);
         ResultSet rs=preparedStatement.executeQuery();
-        List<Article> list=new ArrayList<>();
 
         if(rs.next()){
             do{
-                list.add(Article.builder()
-                                .id(rs.getInt("id"))
-                                .title(rs.getString("title"))
-                                .content(rs.getString("content"))
-                                .writer(rs.getString("writer"))
-                                .build());
+                ls.add(Article.builder()
+                        .id(rs.getLong("id"))
+                        .title(rs.getString("title"))
+                        .writer(rs.getString("writer"))
+                        .content(rs.getString("content"))
+                        .registerDate(rs.getString("register_date"))
+                        .build());
             }while (rs.next());
         }else {
-            System.out.println("null");
+            System.out.println("No Data");
         }
-        return list;
+
+        rs.close();
+        preparedStatement.close();
+        connection.close();
+        return ls;
     }
 }
