@@ -47,10 +47,4 @@ public class MathProxy {
     public static Function<Float,Float> roundFloat =a->(float) Math.round(a);
     public static Function<Long,Long> roundLong =a->(long) Math.round(a);
 
-    //Integer.parseInt
-    public static Function<String,Integer> parseInt = Integer::parseInt;
-    public static Function<String,Double> parseDouble = Double::parseDouble;
-    public static Function<String,Float> parseFloat =Float::parseFloat;
-    public static Function<String,Long> parseLong = Long::parseLong;
-
 }
