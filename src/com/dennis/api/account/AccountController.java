@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AccountController {
-    AccountServiceImpl accountService;
+    static AccountServiceImpl accountService;
 
     public AccountController() {
         this.accountService = AccountServiceImpl.getInstance();
     }
 
-    public Messenger createAccount(Scanner sc) {
+    public static Messenger createAccount(Scanner sc) {
         return accountService.save(Account.builder()
                 .id(sc.nextLong())
                 .accountNumber(sc.next())
@@ -24,7 +24,7 @@ public class AccountController {
         );
     }
 
-    public String deposit(Scanner sc) {
+    public static String deposit(Scanner sc) {
         return accountService.deposit(Account.builder()
                 .id(sc.nextLong())
                 .accountNumber(sc.next())
@@ -34,7 +34,7 @@ public class AccountController {
                 .build());
     }
 
-    public String withdraw(Scanner sc) {
+    public static String withdraw(Scanner sc) {
         return accountService.withdraw(Account.builder()
                 .id(sc.nextLong())
                 .accountNumber(sc.next())
@@ -44,14 +44,14 @@ public class AccountController {
                 .build());
     }
 
-    public String getBalance(Scanner sc) {
+    public static String getBalance(Scanner sc) {
         return accountService.getBalance(sc.next());
     }
-    public String deleteAccount(Scanner sc) {
+    public static String deleteAccount(Scanner sc) {
         return accountService.delete(Account.builder().accountNumber(sc.next()).build());
     }
 
-    public List<?> getAccounts() {
+    public static List<?> getAccounts() {
         return accountService.findAll();
     }
 }

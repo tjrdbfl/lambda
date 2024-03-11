@@ -5,9 +5,10 @@ import com.dennis.api.common.UtilServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class BoardView {
-    public static void main() {
+public class BoardRouter {
+    public static void main(Scanner scanner) {
         List<Board> articles = new ArrayList<>();
         UtilService util = UtilServiceImpl.getInstance();
 

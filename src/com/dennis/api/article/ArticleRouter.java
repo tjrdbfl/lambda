@@ -3,7 +3,7 @@ package com.dennis.api.article;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class ArticleView {
+public class ArticleRouter {
     public static void main(Scanner scanner) throws SQLException {
         ArticleController articleController=new ArticleController();
 

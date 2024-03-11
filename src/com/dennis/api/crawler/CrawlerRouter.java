@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
-public class CrawlerView {
+public class CrawlerRouter {
     @SneakyThrows
     public static void main(Scanner sc) {
         CrawlerController crawlerController = new CrawlerController();
