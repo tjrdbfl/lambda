@@ -5,7 +5,7 @@ import com.dennis.api.account.AccountController;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-public enum AccountNavigation {
+public enum AccountNavigation {  
 
     exit("0", (scanner)->{
         return false;

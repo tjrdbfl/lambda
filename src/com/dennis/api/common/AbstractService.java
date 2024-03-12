@@ -12,6 +12,6 @@ public abstract class AbstractService<T> {
     public abstract Optional<T> findById(Long id);
     public abstract String count();
     public abstract Optional<T> getOne(String id);
-    public abstract String delete(T t);
+    public abstract Messenger delete(T t);
     public abstract Boolean existsById(Long id);
 }

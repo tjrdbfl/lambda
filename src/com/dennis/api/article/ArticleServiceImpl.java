@@ -41,7 +41,7 @@ public class ArticleServiceImpl extends AbstractService<Article> implements Arti
     }
 
     @Override
-    public String delete(Article article) {
+    public Messenger delete(Article article) {
         return null;
     }
 
