@@ -49,7 +49,8 @@ AND team_id IN (SELECT team_id FROM team WHERE region_name='수원');
 - 키와 몸무게가 없으면 "0" 으로 표시하시오
 - 키와 몸무게는 내림차순으로 정렬하시오
 
-SELECT player_name, ifnull(nullif(height,''),0) AS height, ifnull(nullif(weight,''),0) AS weight
+SELECT player_name, ifnull(nullif(height,''),0) AS height
+, ifnull(nullif(weight,''),0) AS weight
 FROM player
 ORDER BY height DESC, weight DESC;
 
@@ -58,7 +59,9 @@ ORDER BY height DESC, weight DESC;
 - 단, 키와 몸무게가 없으면 "0" 표시하시오, BMI는 "NONE" 으로 표시하시오(as bmi)
 - 최종 결과는 이름 내림차순으로 정렬하시오
 
-SELECT player_name, ifnull(nullif(height,''),0) AS height, ifnull(nullif(weight,''),0) AS weight,
-case when height=0 then "NONE" ELSE weight/((height/100)*(height/100)) END AS bmi
+SELECT player_name,
+       CONCAT(IFNULL(NULLIF(height,''),0), 'cm') AS height,
+       CONCAT(IFNULL(NULLIF(weight,''),0), 'kg') AS weight,
+       IFNULL(NULLIF(weight / POWER(NULLIF(height, 0) / 100, 2),''),'NONE') AS bmi
 FROM player
 ORDER BY player_name DESC;
