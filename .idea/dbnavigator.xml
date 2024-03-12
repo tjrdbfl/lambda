@@ -9,6 +9,24 @@
     <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
+  <component name="DBNavigator.Project.DataExportManager">
+    <export-instructions>
+      <create-header value="true" />
+      <friendly-headers value="false" />
+      <quote-values-containing-separator value="true" />
+      <quote-all-values value="false" />
+      <value-separator value="" />
+      <begin-quote value="&quot;" />
+      <end-quote value="&quot;" />
+      <file-name value="" />
+      <file-location value="" />
+      <scope value="GLOBAL" />
+      <destination value="FILE" />
+      <format value="EXCEL" />
+      <charset value="x-windows-949" />
+      <charset value="x-windows-949" />
+    </export-instructions>
+  </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
@@ -22,19 +40,72 @@
     <connection id="6d979b0e-d2d1-4eec-bfb6-ddfa2b3474fe">
       <console name="dennisdb" type="STANDARD" schema="dennisdb" session="Main"><![CDATA[show tables;
 
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50),
-    password VARCHAR(50),
-    name VARCHAR(100),
-    phone VARCHAR(20),
-    job VARCHAR(50),
-    height VARCHAR(10),
-    weight VARCHAR(10)
+drop table stadium;
+CREATE TABLE stadium (
+  id int AUTO_INCREMENT,
+  stadium_name varchar(40) not null,
+  hometeam_id VARCHAR(10) not null,
+  seat_count int not null,
+  address VARCHAR(60) not null,
+  ddd VARCHAR(10) not null,
+  tel VARCHAR(10) not null,
+  PRIMARY KEY (id)
 );
+
+drop table schedule;
+CREATE TABLE schedule (
+  id int AUTO_INCREMENT,
+  sche_date varchar(10),
+  stadium_id int,
+  gubun VARCHAR(10),
+  hometeam_id varchar(10),
+  awayteam_id VARCHAR(10),
+  home_score int,
+  away_score int,
+  PRIMARY KEY (id),
+  FOREIGN KEY (stadium_id) references stadium (id) 
+);
+
+CREATE TABLE team (
+  id int AUTO_INCREMENT,
+  stadium_id int,
+  region_name varchar(10),
+  team_name varchar(40),
+  e_team_name VARCHAR(50),
+  origin_yyyy varchar(10),
+  zip_code1 VARCHAR(10),
+  zip_code2 VARCHAR(10),
+  address varchar(80),
+  ddd varchar(10),
+  tel varchar(10),
+  fax varchar(10),
+  homepage varchar(50),
+  owner varchar(10),
+  PRIMARY KEY (id),
+  FOREIGN KEY (stadium_id) references stadium (id) 
+);
+
+CREATE TABLE player (
+  id int AUTO_INCREMENT,
+  team_id int,
+  player_name varchar(20),
+  e_player_name VARCHAR(40),
+  nickname varchar(30),
+  join_yyyy VARCHAR(10),
+  position VARCHAR(10),
+  back_no int,
+  nation varchar(20),
+  birth_date date,
+  solar varchar(10),
+  height int,
+  weight int,
+  PRIMARY KEY (id),
+  FOREIGN KEY (team_id) references team (id) 
+);
+
 ALTER TABLE users DROP COLUMN address_id;
 DROP TABLE users;
-select * from users;
+select * from schedule;
 insert from users(username, password, name, phone, job, height, weight)]]></console>
     </connection>
   </component>
@@ -42,16 +113,21 @@ insert from users(username, password, name, phone, job, height, weight)]]></cons
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="6d979b0e-d2d1-4eec-bfb6-ddfa2b3474fe" object-ref="consoles/dennisdb" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="f37241d8-8ffc-4064-a0d0-bb7495066c1f" />
     <connection id="6d979b0e-d2d1-4eec-bfb6-ddfa2b3474fe" />
   </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="6d979b0e-d2d1-4eec-bfb6-ddfa2b3474fe" dataset="dennisdb.schedule" active-filter-id="" />
+    <filter-actions connection-id="6d979b0e-d2d1-4eec-bfb6-ddfa2b3474fe" dataset="dennisdb.stadium" active-filter-id="" />
+  </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/src/com/dennis/api/sql/soccer-test.sql" connection-id="6d979b0e-d2d1-4eec-bfb6-ddfa2b3474fe" session-id="MAIN" current-schema="dennisdb" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -203,7 +279,7 @@ insert from users(username, password, name, phone, job, height, weight)]]></cons
           <connect-automatically value="true" />
           <restore-workspace value="true" />
           <restore-workspace-deep value="false" />
-          <environment-type value="default" />
+          <environment-type value="development" />
           <connectivity-timeout value="30" />
           <idle-time-to-disconnect value="30" />
           <idle-time-to-disconnect-pool value="5" />
@@ -255,7 +331,7 @@ insert from users(username, password, name, phone, job, height, weight)]]></cons
       <general>
         <display-mode value="TABBED" />
         <navigation-history-size value="100" />
-        <show-object-details value="false" />
+        <show-object-details value="true" />
       </general>
       <filters>
         <object-type-filter>
