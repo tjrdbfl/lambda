@@ -47,7 +47,7 @@ public class AccountController {
     public static String getBalance(Scanner sc) {
         return accountService.getBalance(sc.next());
     }
-    public static String deleteAccount(Scanner sc) {
+    public static Messenger deleteAccount(Scanner sc) {
         return accountService.delete(Account.builder().accountNumber(sc.next()).build());
     }
 

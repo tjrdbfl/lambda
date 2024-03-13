@@ -16,12 +16,8 @@ public enum Navigation {
         return false;
     }),
     User("u",(scanner)-> {
-        try {
-            UserView.main(scanner);
-            return true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        UserView.main(scanner);
+        return true;
     }),
     Board("b",(scanner)-> {
         BoardRouter.main(scanner) ;
