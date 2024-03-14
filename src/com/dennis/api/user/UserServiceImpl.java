@@ -30,12 +30,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Messenger findUsersByName(String name) {
-        return null;
+        return userRepository.findUsersByName(name);
     }
 
     @Override
     public Messenger findUsersByJob(String job) {
-        return null;
+        return userRepository.findUsersByJob(job);
     }
 
     @Override
@@ -62,4 +62,20 @@ public class UserServiceImpl implements UserService {
     public Messenger delete(User build) {
         return null;
     }
+
+    @Override
+    public Messenger count() {
+        return userRepository.count();
+    }
+
+    @Override
+    public Messenger createTable() {
+        return userRepository.createTable();
+    }
+
+    @Override
+    public Messenger deleteTable() {
+        return userRepository.deleteTable();
+    }
+
 }

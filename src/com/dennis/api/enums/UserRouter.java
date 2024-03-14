@@ -33,9 +33,13 @@ public enum UserRouter {
         }
         return true;
     }),
-    getOne("3",(i)->{
+    findById("3",(i)->{
         System.out.println("3-ID 검색");
-        System.out.println(UserController.getInstance().getOne(i));
+        try {
+            System.out.println(UserController.getInstance().findById(i));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }),
     updatePassword("4",(i)->{
@@ -50,9 +54,11 @@ public enum UserRouter {
     }),
     getUserMap("6",(i)->{
         System.out.println("6-회원목록");
-        UserController.getInstance().getUserMap().forEach((k, v) -> {
-            System.out.printf("아이디: %s, 회원정보: %s", k, v);
-        });
+        try {
+            UserController.getInstance().findAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }),
     findUsersByName("7",(i)->{
@@ -69,6 +75,16 @@ public enum UserRouter {
         System.out.println("9-회원수");
         System.out.println("회원수 " + UserController.getInstance().count());
         return true;
+    }),
+    createTable("10",(i)->{
+        System.out.println("10. Create_table");
+        System.out.println(UserController.getInstance().createTable());
+        return true;
+    }),
+    deleteTable("11",(i)->{
+        System.out.println("11. Delete_table");
+        System.out.println("회원수 " + UserController.getInstance().deleteTable());
+        return true;
     });
 
     private final String name;
@@ -80,16 +96,18 @@ public enum UserRouter {
     }
 
     public static boolean select(Scanner sc) {
-        System.out.println("\n\n[사용자메뉴] 0-종료\n " +
-                "1-회원가입\n " +
-                "2-로그인\n " +
-                "3-ID검색\n " +
-                "4-비번변경\n" +
-                "5-탈퇴\n " +
-                "6-회원목록\n " +
-                "7-이름검색\n " +
-                "8-직업검색\n " +
-                "9-회원수");
+        System.out.println("\n\n[ MENU ] 0. EXIT\n " +
+                "1. Sign_up\n " +
+                "2. Login\n " +
+                "3. Select_Id\n " +
+                "4. Password_Change\n" +
+                "5. Withdrawal\n " +
+                "6. Find_user\n " +
+                "7. Find_User_By_Name\n " +
+                "8. Find_User_By_Job\n " +
+                "9. User_Count\n " +
+                "10. Create_table\n " +
+                "11. Delete_table\n ");
 
         String str=sc.next();
 

@@ -62,38 +62,15 @@ public class UserController {
     public Messenger findUsersByJob(Scanner scanner) {
         return service.findUsersByJob(scanner.next());
     }
-
-
-
-
-
-
-
-
-
-    public Boolean existsById(Scanner scanner) {
-        return service.existsById(Long.parseLong(scanner.next()));
-    }
-
-
-    public Map<String, ?> findUsersByNameFromMap(Scanner scanner) {
-        return service.findUsersByNameFromMap(scanner.next());
-    }
-
-    public List<?> findUsersByJob(Scanner scanner) {
-        return service.findUsersByJob(scanner.next());
-    }
-
-
-
-    public String count() {
+    public Messenger count() {
         return service.count();
     }
-    public Optional<User> getOne(Scanner scanner) {
-        return service.getOne(scanner.next());
-    }
-    public Map<String, ?> getUserMap(){
-        return service.getUserMap();
+
+    public Messenger createTable() {
+        return service.createTable();
     }
 
+    public Messenger deleteTable() {
+        return service.deleteTable();
+    }
 }

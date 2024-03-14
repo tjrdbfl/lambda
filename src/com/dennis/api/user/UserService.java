@@ -21,4 +21,10 @@ public interface UserService {
     Messenger findById(int id) throws SQLException;
 
     Messenger delete(User build);
+
+    Messenger count();
+
+    Messenger createTable();
+
+    Messenger deleteTable();
 }

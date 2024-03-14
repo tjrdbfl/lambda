@@ -161,4 +161,24 @@ public class UserRepository {
         }
         return Messenger.SUCCESS;
     }
+
+    public Messenger findUsersByName(String name) {
+        return Messenger.SUCCESS;
+    }
+
+    public Messenger findUsersByJob(String job) {
+        return Messenger.SUCCESS;
+    }
+
+    public Messenger count() {
+        return Messenger.SUCCESS;
+    }
+
+    public Messenger createTable() {
+        return Messenger.SUCCESS;
+    }
+
+    public Messenger deleteTable() {
+        return Messenger.SUCCESS;
+    }
 }
