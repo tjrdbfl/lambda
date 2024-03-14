@@ -1,15 +1,17 @@
 package com.dennis.api.user;
 
+import com.dennis.api.enums.Messenger;
+
 import java.util.List;
 import java.util.Map;
 
 public interface UserService {
-    String addUsers();
-    String login(User user);
-    String updatePassword(User user);
-    List<?> findUsersByName(String name);
-    Map<String, ?> findUsersByNameFromMap(String name);
-    List<?> findUsersByJob(String job);
-    Map<String, ?> findUsersByJobFromMap(String job);
-    Map<String, ?> getUserMap();
+    Messenger addUsers();
+    Messenger login(User user);
+    Messenger updatePassword(User user);
+    Messenger findUsersByName(String name);
+    Messenger findUsersByNameFromMap(String name);
+    Messenger findUsersByJob(String job);
+    Messenger findUsersByJobFromMap(String job);
+    Messenger getUserMap();
 }
