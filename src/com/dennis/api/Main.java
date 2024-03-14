@@ -15,7 +15,7 @@ public class Main {
                 "b-Board " +
                 "ac-Account " +
                 "c-Crawler " +
-                "a-Article " +
+                "a-Article " +     
                 "===");
         } while (Navigation.mainmenu(sc.next(),sc));
 
