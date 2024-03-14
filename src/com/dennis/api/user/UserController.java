@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class UserController {
-    private static UserController userController=new UserController();
+    private final static UserController userController=new UserController();
     private UserController(){
         this.service = UserServiceImpl.getInstance();
     }

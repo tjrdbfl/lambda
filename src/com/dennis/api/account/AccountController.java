@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AccountController {
-    private static AccountController accountController=new AccountController();
+    private final static AccountController accountController=new AccountController();
     private AccountServiceImpl accountService;
     private AccountController(){
         accountService=AccountServiceImpl.getInstance();
