@@ -2,6 +2,7 @@ package com.dennis.api.enums;
 
 import com.dennis.api.user.UserController;
 
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -14,14 +15,22 @@ public enum UserRouter {
     }),
     save("1",(i)->{
         System.out.println("1-회원가입");
-        System.out.println("회원가입 결과 : "
-                + UserController.getInstance().save(i));
+        try {
+            System.out.println("회원가입 결과 : "
+                    + UserController.getInstance().save(i));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }),
     login("2",(i)->{
         System.out.println("2-로그인");
-        System.out.println("로그인 결과 : "
-                + UserController.getInstance().login(i));
+        try {
+            System.out.println("로그인 결과 : "
+                    + UserController.getInstance().login(i));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }),
     getOne("3",(i)->{
@@ -48,14 +57,12 @@ public enum UserRouter {
     }),
     findUsersByName("7",(i)->{
         System.out.println("7-이름검색");
-        UserController.getInstance().findUsersByName(i)
-                .forEach(System.out::println);
+        System.out.println(UserController.getInstance().findUsersByName(i));
         return true;
     }),
     findUsersByJob("8",(i)->{
         System.out.println("8-직업검색");
-        UserController.getInstance().findUsersByJob(i)
-                .forEach(System.out::println);
+        System.out.println(UserController.getInstance().findUsersByJob(i));
         return true;
     }),
     count("9",(i)->{

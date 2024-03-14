@@ -1,14 +1,12 @@
 package com.dennis.api.user;
 
-import com.dennis.api.crawler.CrawlerRepository;
-import com.dennis.api.crawler.CrawlerServiceImpl;
 import com.dennis.api.enums.Messenger;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class UserController {
     private final static UserController userController=new UserController();
@@ -20,60 +18,63 @@ public class UserController {
     }
     private UserServiceImpl service;
 
-    public String addUsers() {
+    public Messenger addUsers() throws SQLException {
         return service.addUsers();
     }
 
-    public String save(Scanner scanner) {
-        service.save(User.builder()
+    public Messenger save(Scanner scanner) throws SQLException {
+        return service.save(User.builder()
                 .username(scanner.next())
-                .ssn(scanner.next())
                 .address(scanner.next())
-                .phoneNumber(scanner.next())
+                .phone(scanner.next())
                 .password(scanner.next())
                 .build());
-        return "회원가입 성공";
     }
-
-    public List<?> findAll() {
-        return service.findAll();
-    }
-
-    public String login(Scanner scanner) {
+    public Messenger login(Scanner scanner) throws SQLException {
         return service.login(User.builder()
                 .username(scanner.next())
                 .password(scanner.next())
                 .build());
     }
-
-    public Optional<User> findById(Scanner scanner) {
-        return service.findById(Long.parseLong(scanner.next()));
+    public Messenger findById(Scanner scanner) throws SQLException {
+        return service.findById(scanner.nextInt());
     }
-
-    public String updatePassword(Scanner scanner) {
+    public Messenger updatePassword(Scanner scanner) {
         return service.updatePassword(User.builder()
                 .username(scanner.next())
-                .ssn(scanner.next())
                 .address(scanner.next())
-                .phoneNumber(scanner.next())
+                .phone(scanner.next())
                 .password(scanner.next())
                 .build());
     }
+    public Messenger delete(Scanner scanner) {
 
-    public String delete(Scanner scanner) {
-        service.delete(User.builder()
+        return service.delete(User.builder()
                 .username(scanner.next())
                 .build());
-        return "회원삭제";
     }
+    public Messenger findAll() throws SQLException {
+        return service.findAll();
+    }
+    public Messenger findUsersByName(Scanner scanner) {
+        return service.findUsersByName(scanner.next());
+    }
+    public Messenger findUsersByJob(Scanner scanner) {
+        return service.findUsersByJob(scanner.next());
+    }
+
+
+
+
+
+
+
+
 
     public Boolean existsById(Scanner scanner) {
         return service.existsById(Long.parseLong(scanner.next()));
     }
 
-    public List<?> findUsersByName(Scanner scanner) {
-        return service.findUsersByName(scanner.next());
-    }
 
     public Map<String, ?> findUsersByNameFromMap(Scanner scanner) {
         return service.findUsersByNameFromMap(scanner.next());
@@ -83,9 +84,7 @@ public class UserController {
         return service.findUsersByJob(scanner.next());
     }
 
-    public Map<String, ?> findUsersByJobFromMap(Scanner scanner) {
-        return service.findUsersByJobFromMap(scanner.next());
-    }
+
 
     public String count() {
         return service.count();

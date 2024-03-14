@@ -1,13 +1,8 @@
 package com.dennis.api.user;
 
-import com.dennis.api.common.AbstractService;
-import com.dennis.api.common.UtilServiceImpl;
 import com.dennis.api.enums.Messenger;
 
 import java.sql.SQLException;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class UserServiceImpl implements UserService {
     private static UserServiceImpl instance = new UserServiceImpl();
@@ -19,13 +14,13 @@ public class UserServiceImpl implements UserService {
     public static UserServiceImpl getInstance(){return instance;}
 
     @Override
-    public Messenger addUsers(String a) {
-        return userRepository.create();
+    public Messenger addUsers() throws SQLException {
+        return userRepository.addUsers();
     }
 
     @Override
-    public Messenger login(User user) {
-        return null;
+    public Messenger login(User user) throws SQLException {
+        return userRepository.login(user);
     }
 
     @Override
@@ -39,22 +34,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Messenger findUsersByNameFromMap(String name) {
-        return null;
-    }
-
-    @Override
     public Messenger findUsersByJob(String job) {
         return null;
     }
 
     @Override
-    public Messenger findUsersByJobFromMap(String job) {
+    public Messenger getUserMap() {
         return null;
     }
 
     @Override
-    public Messenger getUserMap() {
+    public Messenger save(User user) throws SQLException {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public Messenger findAll() throws SQLException {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public Messenger findById(int id) throws SQLException {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public Messenger delete(User build) {
         return null;
     }
 }
