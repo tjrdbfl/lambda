@@ -1,9 +1,9 @@
 package com.dennis.api.enums;
 
-import com.dennis.api.account.AccountRouter;
-import com.dennis.api.article.ArticleRouter;
-import com.dennis.api.board.BoardRouter;
-import com.dennis.api.crawler.CrawlerRouter;
+import com.dennis.api.account.AccountView;
+import com.dennis.api.article.ArticleView;
+import com.dennis.api.board.BoardView;
+import com.dennis.api.crawler.CrawlerView;
 import com.dennis.api.user.UserView;
 
 import java.sql.SQLException;
@@ -12,26 +12,26 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 public enum NavigationOfFunction {
-    Exit("exit",(scanner)-> {return "x";}),
-    User("user",(i)-> {
+    Exit("x",(i)-> "x"),
+    User("u",(i)-> {
         UserView.main(i);
         return "u";
     }),
-    Board("board",(i)-> {
-        BoardRouter.main(i);
+    Board("b",(i)-> {
+        BoardView.main(i);
         return "b";
     }),
-    Account("account",(i)-> {
-        AccountRouter.main(i);
+    Account("ac",(i)-> {
+        AccountView.main(i);
         return "ac";
     }),
-    Crawler("crawler",(i)-> {
-        CrawlerRouter.main(i);
+    Crawler("c",(i)-> {
+        CrawlerView.main(i);
         return "c";
     }),
-    Article("article",(i)-> {
+    Article("a",(i)-> {
         try {
-            ArticleRouter.main(i);
+            ArticleView.main(i);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -54,7 +54,12 @@ public enum NavigationOfFunction {
                 "===");
 
         String str = sc.next();
+        System.out.printf("선택한 메뉴 : "+str);
 
-        return Arrays.stream(values()).toString();
+        return Arrays.stream(values())
+                .filter(i->i.name.equals(str))
+                .findFirst()
+                .orElseThrow()
+                .function.apply(sc);
     }
 }

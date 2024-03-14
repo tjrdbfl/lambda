@@ -1,9 +1,9 @@
 package com.dennis.api.enums;
 
-import com.dennis.api.account.AccountRouter;
-import com.dennis.api.article.ArticleRouter;
-import com.dennis.api.board.BoardRouter;
-import com.dennis.api.crawler.CrawlerRouter;
+import com.dennis.api.account.AccountView;
+import com.dennis.api.article.ArticleView;
+import com.dennis.api.board.BoardView;
+import com.dennis.api.crawler.CrawlerView;
 import com.dennis.api.user.UserView;
 
 import java.sql.SQLException;
@@ -20,20 +20,20 @@ public enum MainNavigationOfPredicate {
         return true;
     }),
     Board("b",(scanner)-> {
-        BoardRouter.main(scanner) ;
+        BoardView.main(scanner) ;
         return true;
     }),
     Account("ac",(scanner)-> {
-        AccountRouter.main(scanner) ;
+        AccountView.main(scanner) ;
         return true;
     }),
     Crawler("c",(scanner)-> {
-        CrawlerRouter.main(scanner) ;
+        CrawlerView.main(scanner) ;
         return true;
     }),
     Article("a",(scanner -> {
         try {
-            ArticleRouter.main(scanner);
+            ArticleView.main(scanner);
             return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);

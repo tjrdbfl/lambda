@@ -1,5 +1,7 @@
 package com.dennis.api.user;
 
+import com.dennis.api.crawler.CrawlerRepository;
+import com.dennis.api.crawler.CrawlerServiceImpl;
 import com.dennis.api.enums.Messenger;
 
 import java.util.List;
@@ -9,11 +11,14 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class UserController {
-    UserServiceImpl service;
-
-    public UserController() {
+    private static UserController userController=new UserController();
+    private UserController(){
         this.service = UserServiceImpl.getInstance();
     }
+    public static UserController getInstance(){
+        return userController;
+    }
+    private UserServiceImpl service;
 
     public String addUsers() {
         return service.addUsers();

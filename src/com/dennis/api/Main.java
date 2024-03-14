@@ -16,12 +16,11 @@ public class Main {
 //
 //        boolean booleanFlag=NavigationOfPredicate.select(sc);
 //        while(booleanFlag);
-//
-//        String stringFlag=NavigationOfFunction.select(sc);
-//        while(stringFlag.equals(""));
 
-        String stringFlag2=NavigationOfSupplier.select(sc);
-        while(!stringFlag2.equals("x"));
+        while(!NavigationOfFunction.select(sc).equals("x"));
+
+//        String stringFlag2=NavigationOfSupplier.select(sc);
+//        while(!stringFlag2.equals("x"));
 
         //while (MainNavigationOfPredicate.select(sc));
 

@@ -1,15 +1,15 @@
-# 001. 전체 축구팀 목록을 팀이름 오름 차순으로 출력하시오.
-#
-# SELECT team_name FROM team ORDER BY team_name;
-#
-# 002. 플레이어의 포지션 종류를 나열하시오. 단 중복은 제거하고, 포지션이 없으면 빈 공간으로 두시오
-#
-# SELECT DISTINCT position FROM player;
-#
-# 003 플레이어의 포지션 종류를 나열하시오. 단 중복은 제거하고, 포지션이 없으면 '신입' 으로 기재하시오
-#
-# SELECT DISTINCT case when POSITION='' then '신입' ELSE position end as position FROM player
-#
+--001. 전체 축구팀 목록을 팀이름 오름 차순으로 출력하시오.
+--
+--SELECT team_name FROM team ORDER BY team_name;
+
+--002. 플레이어의 포지션 종류를 나열하시오. 단 중복은 제거하고, 포지션이 없으면 빈 공간으로 두시오
+--
+--SELECT DISTINCT position FROM player;
+--
+--003 플레이어의 포지션 종류를 나열하시오. 단 중복은 제거하고, 포지션이 없으면 '신입' 으로 기재하시오
+--
+--SELECT DISTINCT case when POSITION='' then '신입' ELSE position end as position FROM player
+
 # 004 수원팀에서 골키퍼(GK)의 이름을 모두 출력하시오. 단 수원팀 ID는 K02 입니다.
 #
 # SELECT player_name FROM player WHERE team_id='K02' AND POSITION='GK';
@@ -176,14 +176,15 @@
  스타디움, 경기날짜를 구하시오
  연고지와 팀이름은 간격을 띄우시오(수원[]삼성블루윙즈)
 
-select (select player_name,
-       (select position,
-       (select concat(team_name,' ',region_name) from team
-       where  ) as 팀명,
-       (select stadium_name from ) as 스타디음,
-       sche_date as 스타디음
-from schedule
-where sche_date='20120317';
+select p.player_name, p.position, concat(t.team_name,' ',t.region_name) as 팀명,stadium_name, sc.sche_date
+from stadium st
+    join schedule sc using (stadium_id)
+    join team t using (stadium_id)
+    join player p using (team_id)
+where sc.sche_date='20120317'
+    and t.region_name='포항' and t.team_name='스틸러스'
+    and p.position='GK';
+
 
 
 016.
