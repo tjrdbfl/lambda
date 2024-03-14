@@ -6,13 +6,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AccountController {
-    static AccountServiceImpl accountService;
-
-    public AccountController() {
-        this.accountService = AccountServiceImpl.getInstance();
+    private static AccountController accountController=new AccountController();
+    private AccountServiceImpl accountService;
+    private AccountController(){
+        accountService=AccountServiceImpl.getInstance();
     }
 
-    public static Messenger createAccount(Scanner sc) {
+    public static AccountController getInstance(){
+        return accountController;
+    }
+
+
+    public Messenger createAccount(Scanner sc) {
         return accountService.save(Account.builder()
                 .id(sc.nextLong())
                 .accountNumber(sc.next())
@@ -24,7 +29,7 @@ public class AccountController {
         );
     }
 
-    public static String deposit(Scanner sc) {
+    public String deposit(Scanner sc) {
         return accountService.deposit(Account.builder()
                 .id(sc.nextLong())
                 .accountNumber(sc.next())
@@ -34,7 +39,7 @@ public class AccountController {
                 .build());
     }
 
-    public static String withdraw(Scanner sc) {
+    public String withdraw(Scanner sc) {
         return accountService.withdraw(Account.builder()
                 .id(sc.nextLong())
                 .accountNumber(sc.next())
@@ -44,14 +49,14 @@ public class AccountController {
                 .build());
     }
 
-    public static String getBalance(Scanner sc) {
+    public String getBalance(Scanner sc) {
         return accountService.getBalance(sc.next());
     }
-    public static Messenger deleteAccount(Scanner sc) {
+    public Messenger deleteAccount(Scanner sc) {
         return accountService.delete(Account.builder().accountNumber(sc.next()).build());
     }
 
-    public static List<?> getAccounts() {
+    public List<?> getAccounts() {
         return accountService.findAll();
     }
 }
