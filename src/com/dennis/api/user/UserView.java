@@ -55,15 +55,11 @@ public class UserView {
                     break;
                 case "7":
                     System.out.println("7-이름검색");
-                    userController.findUsersByName(sc).forEach((i) -> {
-                        System.out.println(i);
-                    });
+                    userController.findUsersByName(sc).forEach(System.out::println);
                     break;
                 case "8":
                     System.out.println("8-직업검색");
-                    userController.findUsersByJob(sc).forEach((i) -> {
-                        System.out.println(i);
-                    });
+                    userController.findUsersByJob(sc).forEach(System.out::println);
                     break;
                 case "9":
                     System.out.println("9-회원수");

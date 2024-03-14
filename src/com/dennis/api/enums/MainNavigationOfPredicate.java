@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-public enum Navigation {
+public enum MainNavigationOfPredicate {
     exit("x", (scanner)->{
         return false;
     }),
@@ -41,14 +41,22 @@ public enum Navigation {
     }));
     private final String mainmenu;
     private final Predicate<Scanner> predicate;
-    Navigation(String mainmenu, Predicate<Scanner> consumer) {
+    MainNavigationOfPredicate(String mainmenu, Predicate<Scanner> consumer) {
         this.mainmenu = mainmenu;
         this.predicate = consumer;
     }
 
-    public static boolean mainmenu(String s,Scanner sc){
+    public static boolean select(Scanner sc){
+        System.out.println("=== x-Exit " +
+                "u-User " +
+                "b-Board " +
+                "ac-Account " +
+                "c-Crawler " +
+                "a-Article " +
+                "===");
+        String str = sc.next();
         return Arrays.stream(values())
-                .filter(i->i.mainmenu.equals(s))
+                .filter(i->i.mainmenu.equals(str))
                 .findFirst()
                 .orElseThrow()
                 .predicate.test(sc);

@@ -5,44 +5,46 @@ import com.dennis.api.account.AccountController;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-public enum AccountNavigation {  
+public enum AccountNavigationOfPredicate {
 
-    exit("0", (scanner)->{
+    exit("exit", (scanner)->{
         return false;
     }),
-    create("1",(scanner -> {
+    create("create",(scanner -> {
         AccountController.createAccount(scanner);
         return true;
     })),
-    deposit("2",scanner -> {
+    deposit("deposit",scanner -> {
         AccountController.deposit(scanner);
         return true;
     }),
-    withdraw("3", (scanner -> {
+    withdraw("withdraw", (scanner -> {
         AccountController.withdraw(scanner);
         return true;
     })),
-    getBalance("4",scanner ->{
+    getBalance("getBalance",scanner ->{
         AccountController.getBalance(scanner);
         return true;
     }),
-    deleteAccount("5",scanner -> {
+    deleteAccount("deleteAccount",scanner -> {
         AccountController.deleteAccount(scanner);
         return true;
     }),
-    getAccounts("6",scanner -> {
+    getAccounts("getAccounts",scanner -> {
         AccountController.getAccounts().forEach(System.out::println);
         return true;
     });
     private final String menu;
     private final Predicate<Scanner> predicate;
-    AccountNavigation(String menu, Predicate<Scanner> predicate) {
+    AccountNavigationOfPredicate(String menu, Predicate<Scanner> predicate) {
         this.menu = menu;
         this.predicate = predicate;
     }
 
 
-    public static boolean accountMenu(String next, Scanner sc) {
+    public static boolean accountMenu(Scanner sc) {
+        System.out.println("[Account] 0-Exit 1-Create 2-Deposit " +
+                "3-Withdraw 4-Balance 5-Remove 6-Account List");
         return false;
     }
 }

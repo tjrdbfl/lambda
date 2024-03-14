@@ -247,10 +247,10 @@ use dennisdb;
  문제 20
  포지션이 MF 인 선수들의 소속팀명 및  선수명, 백넘버 출력
 
- select (select team_name from team where team_id=p.team_id) as 소속팀명
+ select (select team_name from team t where t.team_id=p.team_id) as 소속팀명
       , player_name as 선수명, back_no as 백넘버
  from player p
- where position='MF';
+ where p.position='MF';
 
 021.
  가장 키큰 선수 5명 소속팀명 및  선수명, 백넘버 출력,
