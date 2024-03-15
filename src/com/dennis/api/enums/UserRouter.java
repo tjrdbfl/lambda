@@ -9,12 +9,12 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public enum UserRouter {
-    exit("0",(i)->{
-        System.out.println("0-종료");
+    exit("x",(i)->{
+        System.out.println("x: EXIT");
         return false;
     }),
-    save("1",(i)->{
-        System.out.println("1-회원가입");
+    join("join",(i)->{
+        System.out.println("join: Join");
         try {
             System.out.println("회원가입 결과 : "
                     + UserController.getInstance().save(i));
@@ -23,8 +23,8 @@ public enum UserRouter {
         }
         return true;
     }),
-    login("2",(i)->{
-        System.out.println("2-로그인");
+    login("login",(i)->{
+        System.out.println("login: Login");
         try {
             System.out.println("로그인 결과 : "
                     + UserController.getInstance().login(i));
@@ -33,8 +33,8 @@ public enum UserRouter {
         }
         return true;
     }),
-    findById("3",(i)->{
-        System.out.println("3-ID 검색");
+    findById("cat-id",(i)->{
+        System.out.println("cat-id: Find_Id");
         try {
             System.out.println(UserController.getInstance().findById(i));
         } catch (SQLException e) {
@@ -42,18 +42,18 @@ public enum UserRouter {
         }
         return true;
     }),
-    updatePassword("4",(i)->{
-        System.out.println("4-비번변경");
+    updatePassword("ch-pw",(i)->{
+        System.out.println("ch-pw: Password_Change");
         System.out.println(UserController.getInstance().updatePassword(i));
         return true;
     }),
-    delete("5",(i)->{
-        System.out.println("5-탈퇴");
-        System.out.println(UserController.getInstance().delete(i));
+    withdrawal("withdrawal",(i)->{
+        System.out.println("withdrawal: Withdrawal");
+        System.out.println(UserController.getInstance().withdrawal(i));
         return true;
     }),
-    getUserMap("6",(i)->{
-        System.out.println("6-회원목록");
+    getUserMap("ls-a",(i)->{
+        System.out.println("ls-a: Find_user");
         try {
             UserController.getInstance().findAll();
         } catch (SQLException e) {
@@ -61,29 +61,49 @@ public enum UserRouter {
         }
         return true;
     }),
-    findUsersByName("7",(i)->{
-        System.out.println("7-이름검색");
-        System.out.println(UserController.getInstance().findUsersByName(i));
+    findUsersByName("ls-n",(i)->{
+        System.out.println("ls-n: Find_User_By_Name");
+        try {
+            System.out.println(UserController.getInstance().findUsersByName(i));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }),
-    findUsersByJob("8",(i)->{
-        System.out.println("8-직업검색");
-        System.out.println(UserController.getInstance().findUsersByJob(i));
+    findUsersByJob("ls-job",(i)->{
+        System.out.println("ls-job: Find_User_By_Job");
+        try {
+            System.out.println(UserController.getInstance().findUsersByJob(i));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }),
-    count("9",(i)->{
-        System.out.println("9-회원수");
-        System.out.println("회원수 " + UserController.getInstance().count());
+    count("cnt",(i)->{
+        System.out.println("cnt: User_Count");
+        try {
+            System.out.println("회원수 " + UserController.getInstance().count());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }),
-    createTable("10",(i)->{
-        System.out.println("10. Create_table");
-        System.out.println(UserController.getInstance().createTable());
+    createTable("mk",(i)->{
+        System.out.println("mk : User Table");
+        try {
+            System.out.println(UserController.getInstance().createTable());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     }),
-    deleteTable("11",(i)->{
-        System.out.println("11. Delete_table");
-        System.out.println("회원수 " + UserController.getInstance().deleteTable());
+    deleteTable("rm",(i)->{
+        System.out.println("rm : Delete_table");
+        try {
+            System.out.println("회원수 " + UserController.getInstance().deleteTable());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
     });
 
@@ -96,18 +116,18 @@ public enum UserRouter {
     }
 
     public static boolean select(Scanner sc) {
-        System.out.println("\n\n[ MENU ] 0. EXIT\n " +
-                "1. Sign_up\n " +
-                "2. Login\n " +
-                "3. Select_Id\n " +
-                "4. Password_Change\n" +
-                "5. Withdrawal\n " +
-                "6. Find_user\n " +
-                "7. Find_User_By_Name\n " +
-                "8. Find_User_By_Job\n " +
-                "9. User_Count\n " +
-                "10. Create_table\n " +
-                "11. Delete_table\n ");
+        System.out.println("\n\n[ MENU ] x: EXIT\n " +
+                "join: Join\n " +
+                "login: Login\n " +
+                "cat-id: Find_Id\n " +
+                "ch-pw: Password_Change\n" +
+                "withdrawal: Withdrawal\n " +
+                "ls-a: Find_user\n " +
+                "ls-n: Find_User_By_Name\n " +
+                "ls-job: Find_User_By_Job\n " +
+                "cnt: User_Count\n " +
+                "mk : User Table\n " +
+                "rm : Delete_table\n ");
 
         String str=sc.next();
 

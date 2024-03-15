@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class BoardRouter {
+public class BoardView {
     public static void main(Scanner scanner) {
         List<Board> articles = new ArrayList<>();
         UtilService util = UtilServiceImpl.getInstance();

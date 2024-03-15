@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class CrawlerController {
-    private CrawlerServiceImpl service=CrawlerServiceImpl.getInstance();
+    private final static CrawlerServiceImpl service=CrawlerServiceImpl.getInstance();
     public Map<String,?> findBugsMusic(Scanner sc) throws IOException {
         System.out.println("크롤링할 주소를 입력하세요.");
         String url=sc.next();

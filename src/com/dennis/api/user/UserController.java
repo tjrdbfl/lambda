@@ -47,7 +47,7 @@ public class UserController {
                 .password(scanner.next())
                 .build());
     }
-    public Messenger delete(Scanner scanner) {
+    public Messenger withdrawal(Scanner scanner) {
 
         return service.delete(User.builder()
                 .username(scanner.next())
@@ -56,21 +56,21 @@ public class UserController {
     public Messenger findAll() throws SQLException {
         return service.findAll();
     }
-    public Messenger findUsersByName(Scanner scanner) {
+    public Messenger findUsersByName(Scanner scanner) throws SQLException {
         return service.findUsersByName(scanner.next());
     }
-    public Messenger findUsersByJob(Scanner scanner) {
+    public Messenger findUsersByJob(Scanner scanner) throws SQLException {
         return service.findUsersByJob(scanner.next());
     }
-    public Messenger count() {
+    public Messenger count() throws SQLException {
         return service.count();
     }
 
-    public Messenger createTable() {
+    public Messenger createTable() throws SQLException {
         return service.createTable();
     }
 
-    public Messenger deleteTable() {
+    public Messenger deleteTable() throws SQLException {
         return service.deleteTable();
     }
 }

@@ -3,6 +3,7 @@ package com.dennis.api.user;
 import com.dennis.api.common.UtilService;
 import com.dennis.api.common.UtilServiceImpl;
 import com.dennis.api.enums.Messenger;
+import com.dennis.api.soccer.SoccerService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class UserRepository {
     }
 
     private UserRepository() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dennisdb"
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dennisdb"
                 , "root", "rootroot");
         utilService = UtilServiceImpl.getInstance();
     }
@@ -33,55 +34,32 @@ public class UserRepository {
         return userRepository;
     }
 
-    private Connection connection;
+    private Connection conn;
     private PreparedStatement pstmt;
+    private ResultSet rs;
+    private int res;
     private UtilService utilService;
-
-
-    public Messenger create() throws SQLException {
-        String sql = "CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY" +
-                ",username VARCHAR(50),password VARCHAR(50),name VARCHAR(100)" +
-                ",phone VARCHAR(20),job VARCHAR(50),height VARCHAR(10)" +
-                ",weight VARCHAR(10))";
-
-        pstmt = connection.prepareStatement(sql);
-        int rs = pstmt.executeUpdate();
-
-        pstmt.close();
-        connection.close();
-        return rs == 1 ? Messenger.SUCCESS : Messenger.FAIL;
-    }
-
-    public Messenger drop() throws SQLException {
-        String sql = "DROP TABLE users";
-        pstmt = connection.prepareStatement(sql);
-        int rs = pstmt.executeUpdate();
-
-        pstmt.close();
-        connection.close();
-        return rs == 1 ? Messenger.SUCCESS : Messenger.FAIL;
-    }
 
     public Messenger findAll() throws SQLException {
 
-        ResultSet resultSet = pstmt.executeQuery("select * from users");
+        rs = pstmt.executeQuery("select * from users");
         Map<String, User> map = new HashMap<>();
         int i = 0;
-        while (resultSet.next()) {
+        while (rs.next()) {
             map.put(String.valueOf(i++), User.builder()
-                    .username(resultSet.getString("username"))
-                    .password(resultSet.getString("password"))
-                    .name(resultSet.getString("name"))
-                    .phone(resultSet.getString("phone"))
-                    .job(resultSet.getString("job"))
-                    .height(Double.parseDouble(resultSet.getString("height")))
-                    .weight(Double.parseDouble(resultSet.getString("weight")))
+                    .username(rs.getString("username"))
+                    .password(rs.getString("password"))
+                    .name(rs.getString("name"))
+                    .phone(rs.getString("phone"))
+                    .job(rs.getString("job"))
+                    .height(Double.parseDouble(rs.getString("height")))
+                    .weight(Double.parseDouble(rs.getString("weight")))
                     .build());
         }
 
-        resultSet.close();
+        rs.close();
         pstmt.close();
-        connection.close();
+        conn.close();
 
         return map.isEmpty() ? Messenger.FAIL:Messenger.SUCCESS;
     }
@@ -89,7 +67,7 @@ public class UserRepository {
     public Messenger addUsers() throws SQLException {
         String sql = "INSERT INTO users (username, password, name, phone, job, height, weight) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        pstmt = connection.prepareStatement(sql);
+        pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, utilService.createRandomUsername());
         pstmt.setString(2, utilService.createRandomUsername().concat(utilService.createRandomUsername()));
         pstmt.setString(3, utilService.createRandomName());
@@ -103,13 +81,13 @@ public class UserRepository {
     }
 
     public Messenger login(User user) throws SQLException {
-        ResultSet resultSet = pstmt.executeQuery("select username,password from users");
-        String username = resultSet.getString("username");
-        String password = resultSet.getString("password");
+        rs = pstmt.executeQuery("select username,password from users");
+        String username = rs.getString("username");
+        String password = rs.getString("password");
 
-        resultSet.close();
+        rs.close();
         pstmt.close();
-        connection.close();
+        conn.close();
         return username.equals(user.getUsername())
                 && password.equals(user.getPassword()) ?
                 Messenger.SUCCESS : Messenger.FAIL;
@@ -118,7 +96,7 @@ public class UserRepository {
     public Messenger save(User user) throws SQLException {
         String sql = "INSERT INTO users (username, password, name, phone, job, height, weight) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
-        pstmt = connection.prepareStatement(sql);
+        pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, user.getUsername());
         pstmt.setString(2, user.getPassword());
         pstmt.setString(3, user.getUsername());
@@ -132,9 +110,9 @@ public class UserRepository {
     }
 
     public Messenger findById(int id) throws SQLException {
-        ResultSet resultSet = pstmt.executeQuery("select * from users where ?");
+        rs = pstmt.executeQuery("select * from users where ?");
         pstmt.setString(1, String.valueOf(id));
-        ResultSet rs = pstmt.executeQuery();
+        rs = pstmt.executeQuery();
 
         if (rs.next()) {
             do {
@@ -149,36 +127,93 @@ public class UserRepository {
                         rs.getFloat("weight"));
                 System.out.println();
             } while (rs.next());
-            resultSet.close();
+            rs.close();
             pstmt.close();
-            connection.close();
+            conn.close();
         } else {
             System.out.println("데이터가 존재 하지 않음.");
-            resultSet.close();
+            rs.close();
             pstmt.close();
-            connection.close();
+            conn.close();
             return Messenger.FAIL;
         }
         return Messenger.SUCCESS;
     }
 
-    public Messenger findUsersByName(String name) {
-        return Messenger.SUCCESS;
+    public Messenger findUsersByName(String name) throws SQLException {
+        try {
+            String sql = "SELECT name FROM users WHERE name = ?";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while(rs.next())
+                if(rs.getString("name").equals(name))
+                    return Messenger.SUCCESS;
+            return Messenger.FAIL;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return Messenger.FAIL;
+        } finally {
+            rs.close();
+            pstmt.close();
+            conn.close();
+        }
     }
 
-    public Messenger findUsersByJob(String job) {
-        return Messenger.SUCCESS;
+    public Messenger findUsersByJob(String job) throws SQLException {
+        try {
+            pstmt=conn.prepareStatement("select job from users where job=?");
+            rs=pstmt.executeQuery();
+            while (rs.next())
+                if(rs.getString("job").equals(job))
+                    return Messenger.SUCCESS;
+            return Messenger.FAIL;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return Messenger.FAIL;
+        }finally {
+            pstmt.close();
+            rs.close();
+            conn.close();
+        }
     }
 
-    public Messenger count() {
-        return Messenger.SUCCESS;
+    public Messenger count() throws SQLException {
+        try {
+            pstmt=conn.prepareStatement("select count(*) from users");
+            System.out.println(pstmt.executeUpdate());
+            return Messenger.SUCCESS;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return Messenger.FAIL;
+        }finally {
+            pstmt.close();
+            rs.close();
+            conn.close();
+        }
     }
 
-    public Messenger createTable() {
-        return Messenger.SUCCESS;
+    public Messenger createTable() throws SQLException {
+        String sql = "CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY" +
+                ",username VARCHAR(50),password VARCHAR(50),name VARCHAR(100)" +
+                ",phone VARCHAR(20),job VARCHAR(50),height VARCHAR(10)" +
+                ",weight VARCHAR(10))";
+
+        pstmt = conn.prepareStatement(sql);
+        int res = pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
+        return res == 1 ? Messenger.SUCCESS : Messenger.FAIL;
     }
 
-    public Messenger deleteTable() {
-        return Messenger.SUCCESS;
+    public Messenger deleteTable() throws SQLException {
+        String sql = "DROP TABLE users";
+        pstmt = conn.prepareStatement(sql);
+        res = pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
+        return res == 1 ? Messenger.SUCCESS : Messenger.FAIL;
     }
 }

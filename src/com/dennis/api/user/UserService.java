@@ -10,21 +10,17 @@ public interface UserService {
     Messenger addUsers() throws SQLException;
     Messenger login(User user) throws SQLException;
     Messenger updatePassword(User user);
-    Messenger findUsersByName(String name);
-    Messenger findUsersByJob(String job);
-    Messenger getUserMap();
-
+    Messenger findUsersByName(String name) throws SQLException;
+    Messenger findUsersByJob(String job) throws SQLException;
     Messenger save(User build) throws SQLException;
 
     Messenger findAll() throws SQLException;
 
     Messenger findById(int id) throws SQLException;
 
-    Messenger delete(User build);
+    Messenger count() throws SQLException;
 
-    Messenger count();
+    Messenger createTable() throws SQLException;
 
-    Messenger createTable();
-
-    Messenger deleteTable();
+    Messenger deleteTable() throws SQLException;
 }

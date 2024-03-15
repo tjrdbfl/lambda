@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class AccountServiceImpl extends AbstractService<Account> implements AccountService {
 
-    private static AccountServiceImpl instance = new AccountServiceImpl();
+    private final static AccountServiceImpl instance = new AccountServiceImpl();
     List<Account> accounts;
     Map<String, User> users;
     private AccountServiceImpl(){

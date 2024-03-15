@@ -5,7 +5,7 @@ import com.dennis.api.enums.Messenger;
 import java.sql.SQLException;
 
 public class UserServiceImpl implements UserService {
-    private static UserServiceImpl instance = new UserServiceImpl();
+    private final static UserServiceImpl instance = new UserServiceImpl();
     private UserRepository userRepository;
 
     private UserServiceImpl(){
@@ -29,18 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Messenger findUsersByName(String name) {
+    public Messenger findUsersByName(String name) throws SQLException {
         return userRepository.findUsersByName(name);
     }
 
     @Override
-    public Messenger findUsersByJob(String job) {
+    public Messenger findUsersByJob(String job) throws SQLException {
         return userRepository.findUsersByJob(job);
-    }
-
-    @Override
-    public Messenger getUserMap() {
-        return null;
     }
 
     @Override
@@ -59,22 +54,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Messenger delete(User build) {
-        return null;
-    }
-
-    @Override
-    public Messenger count() {
+    public Messenger count() throws SQLException {
         return userRepository.count();
     }
 
     @Override
-    public Messenger createTable() {
+    public Messenger createTable() throws SQLException {
         return userRepository.createTable();
     }
 
     @Override
-    public Messenger deleteTable() {
+    public Messenger deleteTable() throws SQLException {
         return userRepository.deleteTable();
     }
 

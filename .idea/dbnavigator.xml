@@ -38,14 +38,17 @@
       <console name="Connection 1" type="STANDARD" schema="" session="Main" />
     </connection>
     <connection id="6d979b0e-d2d1-4eec-bfb6-ddfa2b3474fe">
-      <console name="dennisdb" type="STANDARD" schema="" session="Main" />
+      <console name="dennisdb" type="STANDARD" schema="" session="Main"><![CDATA[show tables;
+select * from menus;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="6d979b0e-d2d1-4eec-bfb6-ddfa2b3474fe" object-ref="consoles/dennisdb" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="f37241d8-8ffc-4064-a0d0-bb7495066c1f" />

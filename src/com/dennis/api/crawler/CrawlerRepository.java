@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class CrawlerRepository extends AbstractRepository {
-    private static CrawlerRepository instance = new CrawlerRepository();
+    private final static CrawlerRepository instance = new CrawlerRepository();
     private Map<String, ?> map;
     private CrawlerRepository(){
         map=new HashMap<>();

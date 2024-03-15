@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CrawlerServiceImpl implements CrawlerService {
-    private static CrawlerServiceImpl instance = new CrawlerServiceImpl();
+    private final static CrawlerServiceImpl instance = new CrawlerServiceImpl();
     private CrawlerServiceImpl(){
         repository= CrawlerRepository.getInstance();
     }
